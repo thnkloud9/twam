@@ -64,106 +64,100 @@
     </div>
 
 <script id="codeScript1">
-const btn = document.querySelector('#randomizeButton');
-const msg = document.querySelector('#msg');
-const wordMachine1 = document.querySelector('#wordMachine1');
-const machine1 = new SlotMachine(wordMachine1, { active: 1, });
-const wordMachine2 = document.querySelector('#wordMachine2');
-const machine2 = new SlotMachine(wordMachine2, { active: 1, });
-const wordMachine3 = document.querySelector('#wordMachine3');
-const machine3 = new SlotMachine(wordMachine3, { active: 1, });
-var matchedWords = 0;
-var words = [];
+  const btn = document.querySelector('#randomizeButton');
+  const msg = document.querySelector('#msg');
+  const wordMachine1 = document.querySelector('#wordMachine1');
+  const machine1 = new SlotMachine(wordMachine1, { active: 1, });
+  const wordMachine2 = document.querySelector('#wordMachine2');
+  const machine2 = new SlotMachine(wordMachine2, { active: 1, });
+  const wordMachine3 = document.querySelector('#wordMachine3');
+  const machine3 = new SlotMachine(wordMachine3, { active: 1, });
+  var matchedWords = 0;
+  var words = [];
 
-function postFrom(path, params, method) {
-  method = method || "post"; // Set method to post by default if not specified.
+  function postFrom(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
 
-  // The rest of this code assumes you are not using a library.
-  // It can be made less wordy if you use one.
-  var form = document.createElement("form");
-  form.setAttribute("method", method);
-  form.setAttribute("action", path);
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
 
-  for(var key in params) {
-    if(params.hasOwnProperty(key)) {
-      var hiddenField = document.createElement("input");
-      hiddenField.setAttribute("type", "hidden");
-      hiddenField.setAttribute("name", key);
-      hiddenField.setAttribute("value", params[key]);
+    for(var key in params) {
+      if(params.hasOwnProperty(key)) {
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", params[key]);
 
-      form.appendChild(hiddenField);
+        form.appendChild(hiddenField);
+      }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  function post(path, params, method) {
+    var method = method || "POST";
+    var http = new XMLHttpRequest();
+    http.open(method, path, true);
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    http.onreadystatechange = function() {
+        if(http.readyState == 4 && http.status == 200) {
+            msg.innerHTML = "I've created a new object for you.  Look up silly!";
+            setTimeout(() => msg.innerHTML = '', 8000);
+        }
+    }
+    http.send(params);
+  }
+
+  function onComplete(active) {
+    matchedWords++;
+    active = active+1;
+    var query = '#wordMachine' + matchedWords + ' >div:first-child'; 
+    var wordMachine = document.querySelector(query);
+    var child = wordMachine.firstChild;
+    var current = 0;
+
+    if (matchedWords === 1) {
+      words = [];
+    }
+
+    if (current === active) {
+      console.log(matchedWords, current, active, child.innerHTML);
+      words.push(child.innerHTML.trim());
+    } else {
+      while(child && current !== active) {
+        current++;
+        child = child.nextSibling;
+        if (current === active) {
+          console.log(matchedWords, current, active, child.innerHTML);
+          words.push(child.innerHTML.trim());
+        }
+      }
+    }
+
+    if (matchedWords == 3) {
+      console.log('done', words); 
+      matchedWords = 0;
+      // POST to this page with words=words
+      //setTimeout(() => postForm('/interface/', {'words': words}), 1000);
+      setTimeout(() => post('/interface/', 'words=' + words, 'POST'), 1000);
     }
   }
 
-  document.body.appendChild(form);
-  form.submit();
-}
-
-function post(path, params, method) {
-  var method = method || "POST";
-  var http = new XMLHttpRequest();
-  http.open(method, path, true);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  http.onreadystatechange = function() {
-      if(http.readyState == 4 && http.status == 200) {
-          msg.innerHTML = "I've created a new object for you.  Look up silly!";
-          setTimeout(() => msg.innerHTML = '', 8000);
-      }
-  }
-  http.send(params);
-}
-
-function onComplete(active) {
-  matchedWords++;
-  active = active+1;
-  var query = '#wordMachine' + matchedWords + ' >div:first-child'; 
-  var wordMachine = document.querySelector(query);
-  var child = wordMachine.firstChild;
-  var current = 0;
-
-  if (matchedWords === 1) {
-    words = [];
+  function shuffle(event) {
+    event.preventDefault();
+    msg.innerHTML = '';
+    machine1.shuffle(5, onComplete);
+    setTimeout(() => machine2.shuffle(5, onComplete), 500);
+    setTimeout(() => machine3.shuffle(5, onComplete), 1000);
   }
 
-  if (current === active) {
-    console.log(matchedWords, current, active, child.innerHTML);
-    words.push(child.innerHTML.trim());
-  } else {
-    while(child && current !== active) {
-      current++;
-      child = child.nextSibling;
-      if (current === active) {
-        console.log(matchedWords, current, active, child.innerHTML);
-        words.push(child.innerHTML.trim());
-      }
-    }
-  }
-
-  if (matchedWords == 3) {
-    console.log('done', words); 
-    matchedWords = 0;
-    // POST to this page with words=words
-    //setTimeout(() => postForm('/interface/', {'words': words}), 1000);
-    setTimeout(() => post('/interface/', 'words=' + words, 'POST'), 1000);
-  }
-}
-
-function shuffle() {
-  msg.innerHTML = '';
-  machine1.shuffle(5, onComplete);
-  setTimeout(() => machine2.shuffle(5, onComplete), 500);
-  setTimeout(() => machine3.shuffle(5, onComplete), 1000);
-}
-
-btn.addEventListener('click', () => {
-  shuffle();
-});
-
-btn.addEventListener('touchstart', () => {
-  shuffle();
-});
-
-
+  btn.addEventListener('click', shuffle, false);
+  btn.addEventListener('touchend',shuffle, false);
 </script>
 
 
