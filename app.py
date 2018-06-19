@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import sqlite3
 import sys
+import pytumblr
 from time import gmtime, strftime
 
 app = Flask(__name__, static_url_path='/static')
@@ -57,11 +58,20 @@ def interface():
            insert += "'" + str(item['Description']) + "',"
            insert += "'" + str(strftime("%s", gmtime())) + "')"
 
-           sys.stderr.write(insert)
            cur.execute(insert)
            db.commit() 
 
-           # TODO: post to tumblr
+           # post to tumblr
+           # Authenticate via OAuth
+           client = pytumblr.TumblrRestClient(
+               't974d1o5k9G2wXnphc2LVMBC1Z113P6ZCQgfAq2zO7sE7kmXNb',
+               'AkoVQFJJslM8dX9TrJsA18Ko46M9cnmphpAEyboyQJWrwSy7bv',
+               'vnxzlzUTLb8wh4BN6iaYvDIawgRPjRpDWGMvY7F0L3lGDE9lMb',
+               'NLLQ9kz092LGZAoF6nXwK7CoeRVTxAh71FhJeJkP4cA4KGNo06'
+           )
+
+           # Make the request
+           client.create_text('intelligentselections', state="published", slug=str(title).strip().replace(' ', '-'), title=str(title).strip(), body=str(item['Description']))
 
        return render_template('done.html', items=items, words=words)
   
