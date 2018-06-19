@@ -1,13 +1,14 @@
 <!doctype html>
 <head>
     <title>Intelligent Selection</title>
+    <meta http-equiv="refresh" content="5">
 </head>
 
 <body>
 {% if items %}
   {% for item in items %}
-  <h3>{{ item["Noun"] | trim }}!</h3>
-  <p>{{ item["Desc"] }}</p>
+  <h3>{{ item["Title"] | trim }}!</h3>
+  <p>{{ item["Description"] }}</p>
   {% endfor %}
 {% else %}
   <h3>Empty!</h3>

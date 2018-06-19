@@ -1,0 +1,30 @@
+<!doctype html>
+<head>
+    <title>Intelligent Selection</title>
+</head>
+
+<body>
+  <h3>
+    {% for word in words %}
+      {{ word }}
+    {% endfor %}
+  </h3>
+
+{% if items %}
+  {% for item in items %}
+    <p>{{ item["Description"] }}</p>
+  {% endfor %}
+{% else %}
+  <p>Empty</p>
+{% endif %}
+
+<br>
+
+<a href="/interface/">Back</a>
+
+<br>
+
+</body>
+</html>
+</body>
+</html>

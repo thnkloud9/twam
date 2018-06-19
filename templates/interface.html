@@ -67,9 +67,65 @@ const wordMachine2 = document.querySelector('#wordMachine2');
 const machine2 = new SlotMachine(wordMachine2, { active: 1, });
 const wordMachine3 = document.querySelector('#wordMachine3');
 const machine3 = new SlotMachine(wordMachine3, { active: 1, });
+var matchedWords = 0;
+var words = [];
+
+function post(path, params, method) {
+  method = method || "post"; // Set method to post by default if not specified.
+
+  // The rest of this code assumes you are not using a library.
+  // It can be made less wordy if you use one.
+  var form = document.createElement("form");
+  form.setAttribute("method", method);
+  form.setAttribute("action", path);
+
+  for(var key in params) {
+    if(params.hasOwnProperty(key)) {
+      var hiddenField = document.createElement("input");
+      hiddenField.setAttribute("type", "hidden");
+      hiddenField.setAttribute("name", key);
+      hiddenField.setAttribute("value", params[key]);
+
+      form.appendChild(hiddenField);
+    }
+  }
+
+  document.body.appendChild(form);
+  form.submit();
+}
 
 function onComplete(active) {
-  console.log('done', this.active); 
+  matchedWords++;
+  active = active+1;
+  var query = '#wordMachine' + matchedWords + ' >div:first-child'; 
+  var wordMachine = document.querySelector(query);
+  var child = wordMachine.firstChild;
+  var current = 0;
+
+  if (matchedWords === 1) {
+    words = [];
+  }
+
+  if (current === active) {
+    console.log(matchedWords, current, active, child.innerHTML);
+    words.push(child.innerHTML.trim());
+  } else {
+    while(child && current !== active) {
+      current++;
+      child = child.nextSibling;
+      if (current === active) {
+        console.log(matchedWords, current, active, child.innerHTML);
+        words.push(child.innerHTML.trim());
+      }
+    }
+  }
+
+  if (matchedWords == 3) {
+    console.log('done', words); 
+    matchedWords = 0;
+    // POST to this page with words=words
+    setTimeout(() => post('/interface/', {'words': words}), 1000);
+  }
 }
 
 btn.addEventListener('click', () => {
