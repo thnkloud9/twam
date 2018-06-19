@@ -107,7 +107,7 @@
     http.onreadystatechange = function() {
         if(http.readyState == 4 && http.status == 200) {
             msg.innerHTML = "I've created a new object for you.  Look up silly!";
-            setTimeout(() => msg.innerHTML = '', 8000);
+            setTimeout(function() { msg.innerHTML = ''; }, 8000);
         }
     }
     http.send(params);
@@ -143,17 +143,18 @@
       console.log('done', words); 
       matchedWords = 0;
       // POST to this page with words=words
-      //setTimeout(() => postForm('/interface/', {'words': words}), 1000);
-      setTimeout(() => post('/interface/', 'words=' + words, 'POST'), 1000);
+      //setTimeout(function () { postForm('/interface/', {'words': words}); }, 1000);
+      setTimeout(function () { post('/interface/', 'words=' + words, 'POST'); }, 1000);
     }
   }
 
   function shuffle(event) {
     event.preventDefault();
+    event.stopPropagation();
     msg.innerHTML = '';
     machine1.shuffle(5, onComplete);
-    setTimeout(() => machine2.shuffle(5, onComplete), 500);
-    setTimeout(() => machine3.shuffle(5, onComplete), 1000);
+    setTimeout(function () { machine2.shuffle(5, onComplete); }, 500);
+    setTimeout(function () { machine3.shuffle(5, onComplete); }, 1000);
   }
 
   btn.addEventListener('click', shuffle, false);
