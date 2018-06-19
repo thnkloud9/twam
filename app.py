@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import sqlite3
 import sys
 import pytumblr
@@ -21,6 +21,16 @@ def display():
    
    items = cur.fetchall();
    return render_template('display.html', items=items)
+
+@app.route('/display_json/')
+def display_json():
+   con = sqlite3.connect("twam.db")
+   
+   cur = con.cursor()
+   cur.execute("select * from Display ORDER BY created DESC LIMIT 1")
+   
+   item = cur.fetchone();
+   return jsonify(item)
 
 
 @app.route('/interface/', methods=['POST', 'GET'])

@@ -1,7 +1,6 @@
 <!doctype html>
 <head>
     <title>Intelligent Selection</title>
-    <meta http-equiv="refresh" content="5">
     <link rel="stylesheet" href="/static/reset.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/static/fonts.css?v=1" type="text/css" media="screen" />
     <link rel="stylesheet" href="/static/display.css?v=1" type="text/css" media="screen" />
@@ -11,12 +10,74 @@
   <div>
     {% if items %}
       {% for item in items %}
-      <h1>{{ item["Title"] | trim | upper }}</h1>
-      <p>{{ item["Description"] | trim | title }}</p>
+      <h1 id="title">{{ item["Title"] | trim | upper }}</h1>
+      <p id="description">{{ item["Description"] | trim | title }}</p>
       {% endfor %}
     {% else %}
       <h3>Empty!</h3>
     {% endif %}
   </div>
+
+<script>
+
+function fadeOut(element, speed) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, speed);
+}
+
+function fadeIn(element, speed) {
+    var op = 0.1;  // initial opacity
+    element.style.display = 'block';
+    var timer = setInterval(function () {
+        if (op >= 1){
+            clearInterval(timer);
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op += op * 0.1;
+    }, speed);
+}
+
+function refresh() {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+          var item = JSON.parse(xhr.responseText);
+          var title = item[1];
+          var description = item[2];
+          var titleElement = document.querySelector('#title');
+          var descriptionElement = document.querySelector('#description');
+          var existingTitle = titleElement.innerHTML; 
+          if (title.toLowerCase() !== existingTitle.toLowerCase()) {
+            console.log('new item detected', title, existingTitle);
+
+            fadeOut(titleElement, 10);
+            fadeOut(descriptionElement, 10);
+
+            setTimeout(function() {
+              titleElement.innerHTML = title.toUpperCase();
+              descriptionElement.innerHTML = description;
+              fadeIn(titleElement, 20);
+              fadeIn(descriptionElement, 20);
+            }, 2000);
+          }
+      }
+  }
+  xhr.open('GET', '/display_json', true);
+  xhr.send(null);
+}
+
+setInterval(function() { refresh(); }, 2000);
+
+</script>
+
 </body>
 </html>
