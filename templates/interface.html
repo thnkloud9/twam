@@ -70,7 +70,7 @@ const machine3 = new SlotMachine(wordMachine3, { active: 1, });
 var matchedWords = 0;
 var words = [];
 
-function post(path, params, method) {
+function postFrom(path, params, method) {
   method = method || "post"; // Set method to post by default if not specified.
 
   // The rest of this code assumes you are not using a library.
@@ -92,6 +92,19 @@ function post(path, params, method) {
 
   document.body.appendChild(form);
   form.submit();
+}
+
+function post(path, params, method) {
+  var method = method || "POST";
+  var http = new XMLHttpRequest();
+  http.open(method, path, true);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  http.onreadystatechange = function() {
+      if(http.readyState == 4 && http.status == 200) {
+          console.log(http.responseText);
+      }
+  }
+  http.send(params);
 }
 
 function onComplete(active) {
@@ -124,7 +137,8 @@ function onComplete(active) {
     console.log('done', words); 
     matchedWords = 0;
     // POST to this page with words=words
-    setTimeout(() => post('/interface/', {'words': words}), 1000);
+    //setTimeout(() => postForm('/interface/', {'words': words}), 1000);
+    setTimeout(() => post('/interface/', 'words=' + words, 'POST'), 1000);
   }
 }
 
