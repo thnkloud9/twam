@@ -2,16 +2,21 @@
 <head>
     <title>Intelligent Selection</title>
     <meta http-equiv="refresh" content="5">
+    <link rel="stylesheet" href="/static/reset.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/fonts.css?v=1" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/display.css?v=1" type="text/css" media="screen" />
 </head>
 
 <body>
-{% if items %}
-  {% for item in items %}
-  <h3>{{ item["Title"] | trim }}!</h3>
-  <p>{{ item["Description"] }}</p>
-  {% endfor %}
-{% else %}
-  <h3>Empty!</h3>
-{% endif %}
+  <div>
+    {% if items %}
+      {% for item in items %}
+      <h1>{{ item["Title"] | trim | upper }}</h1>
+      <p>{{ item["Description"] | trim | title }}</p>
+      {% endfor %}
+    {% else %}
+      <h3>Empty!</h3>
+    {% endif %}
+  </div>
 </body>
 </html>

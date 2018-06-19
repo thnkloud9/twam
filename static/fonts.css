@@ -1,0 +1,59 @@
+@font-face {
+    font-family: NewRailAlphabetBlack;
+    src: url("fonts/NewRailAlphabet-Black.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetBlackItalic;
+    src: url("fonts/NewRailAlphabet-BlackItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetBold;
+    src: url("fonts/NewRailAlphabet-Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetBoldItalic;
+    src: url("fonts/NewRailAlphabet-BoldItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetLight;
+    src: url("fonts/NewRailAlphabet-Light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetLightItalic;
+    src: url("fonts/NewRailAlphabet-LightItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetMedium;
+    src: url("fonts/NewRailAlphabet-Medium.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetMediumItalic;
+    src: url("fonts/NewRailAlphabet-MediumItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetOffWhite;
+    src: url("fonts/NewRailAlphabet-OffWhite.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetOffWhiteItalic;
+    src: url("fonts/NewRailAlphabet-OffWhiteItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetWhite;
+    src: url("fonts/NewRailAlphabet-White.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NewRailAlphabetWhiteItalic;
+    src: url("fonts/NewRailAlphabet-WhiteItalic.otf") format("opentype");
+}

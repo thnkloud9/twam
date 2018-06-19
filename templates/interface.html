@@ -1,23 +1,26 @@
 <!doctype html>
 <head>
     <title>Intelligent Selection</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
-
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/reset.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/fonts.css?v=0" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/style.css?v=5" type="text/css" media="screen" />
     <link rel="stylesheet" href="/static/slotmachine.css" type="text/css" media="screen" />
 
     <script src="/static/slotmachine.js"></script>
+
 </head>
 
 <body>
-    <h2>Intelligent Selection Interface</h2>
+    <!-- <h2>Intelligent Selection Interface</h2> -->
 
     <!-- Flight example -->
     <div id="word">
       <div class="container">
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-12">
             <div class="well content">
               <div id="wordMachine1" class="word-list">
                 {% for word in words %}
@@ -28,7 +31,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-12">
             <div class="well content">
               <div id="wordMachine2" class="word-list">
                 {% for word in words %}
@@ -39,7 +42,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-12">
             <div class="well content">
               <div id="wordMachine3" class="word-list">
                 {% for word in words %}
@@ -58,7 +61,7 @@
       </div>
       <div class="row">
         <div class="btn-group btn-group-justified" role="group">
-          <p id="msg"></p> 
+          <p id="msg"></p>
         </div>
       </div>
     </div>
@@ -107,7 +110,7 @@
     http.onreadystatechange = function() {
         if(http.readyState == 4 && http.status == 200) {
             msg.innerHTML = "I've created a new object for you.  Look up silly!";
-            setTimeout(() => msg.innerHTML = '', 8000);
+            setTimeout(function() { msg.innerHTML = ''; }, 8000);
         }
     }
     http.send(params);
@@ -116,7 +119,7 @@
   function onComplete(active) {
     matchedWords++;
     active = active+1;
-    var query = '#wordMachine' + matchedWords + ' >div:first-child'; 
+    var query = '#wordMachine' + matchedWords + ' >div:first-child';
     var wordMachine = document.querySelector(query);
     var child = wordMachine.firstChild;
     var current = 0;
@@ -140,20 +143,21 @@
     }
 
     if (matchedWords == 3) {
-      console.log('done', words); 
+      console.log('done', words);
       matchedWords = 0;
       // POST to this page with words=words
-      //setTimeout(() => postForm('/interface/', {'words': words}), 1000);
-      setTimeout(() => post('/interface/', 'words=' + words, 'POST'), 1000);
+      //setTimeout(function () { postForm('/interface/', {'words': words}); }, 1000);
+      setTimeout(function () { post('/interface/', 'words=' + words, 'POST'); }, 1000);
     }
   }
 
   function shuffle(event) {
     event.preventDefault();
+    event.stopPropagation();
     msg.innerHTML = '';
     machine1.shuffle(5, onComplete);
-    setTimeout(() => machine2.shuffle(5, onComplete), 500);
-    setTimeout(() => machine3.shuffle(5, onComplete), 1000);
+    setTimeout(function () { machine2.shuffle(5, onComplete); }, 500);
+    setTimeout(function () { machine3.shuffle(5, onComplete); }, 1000);
   }
 
   btn.addEventListener('click', shuffle, false);
