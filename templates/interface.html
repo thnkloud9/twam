@@ -1,0 +1,108 @@
+<!doctype html>
+<head>
+    <title>Intelligent Selection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/slotmachine.css" type="text/css" media="screen" />
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/static/slotmachine.js"></script>
+</head>
+
+<body>
+    <h2>Intelligent Selection Interface</h2>
+
+    <!-- Flight example -->
+    <div id="word">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="well content">
+              <div id="wordMachine1" class="word-list">
+                <div class="text-center">
+                  Sexy
+                </div>
+                <div class="text-center">
+                  Glass
+                </div>
+                <div class="text-center">
+                  Iron 
+                </div>
+                <div class="text-center">
+                  Plastic
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="well content">
+              <div id="wordMachine2" class="word-list">
+                <div class="text-center">
+                  World
+                </div>
+                <div class="text-center">
+                  London
+                </div>
+                <div class="text-center">
+                  Berlin 
+                </div>
+                <div class="text-center">
+                  Matrix
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="well content">
+              <div id="wordMachine3" class="word-list">
+                <div class="text-center">
+                  Castle
+                </div>
+                <div class="text-center">
+                  Jar
+                </div>
+                <div class="text-center">
+                  Jumper
+                </div>
+                <div class="text-center">
+                  Lamp
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="row">
+        <div class="btn-group btn-group-justified" role="group">
+          <button id="randomizeButton" type="button" class="btn btn-danger btn-lg">Shuffle</button>
+        </div>
+      </div>
+    </div>
+
+<script id="codeScript1">
+const btn = document.querySelector('#randomizeButton');
+const wordMachine1 = document.querySelector('#wordMachine1');
+const machine1 = new SlotMachine(wordMachine1, { active: 1, });
+const wordMachine2 = document.querySelector('#wordMachine2');
+const machine2 = new SlotMachine(wordMachine2, { active: 1, });
+const wordMachine3 = document.querySelector('#wordMachine3');
+const machine3 = new SlotMachine(wordMachine3, { active: 1, });
+
+function onComplete(active) {
+  console.log('done', this.active); 
+}
+
+btn.addEventListener('click', () => {
+  machine1.shuffle(5, onComplete);
+  setTimeout(() => machine2.shuffle(5, onComplete), 500);
+  setTimeout(() => machine3.shuffle(5, onComplete), 1000);
+});
+
+
+</script>
+
+
+</body>
+
+</html>
