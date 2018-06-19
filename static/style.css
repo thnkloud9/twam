@@ -25,8 +25,15 @@ code {
   font-size:
 }
 
+#msg {
+  color: red;
+  font-size: 24px;
+  font-weight: bold;
+}
+
 .btn-group-justified {
   margin: 0 auto;
+  margin-top: 10px;
 }
 
 h1 {

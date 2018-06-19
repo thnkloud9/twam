@@ -57,10 +57,16 @@
           <button id="randomizeButton" type="button" class="btn btn-danger btn-lg">Shuffle</button>
         </div>
       </div>
+      <div class="row">
+        <div class="btn-group btn-group-justified" role="group">
+          <p id="msg"></p> 
+        </div>
+      </div>
     </div>
 
 <script id="codeScript1">
 const btn = document.querySelector('#randomizeButton');
+const msg = document.querySelector('#msg');
 const wordMachine1 = document.querySelector('#wordMachine1');
 const machine1 = new SlotMachine(wordMachine1, { active: 1, });
 const wordMachine2 = document.querySelector('#wordMachine2');
@@ -101,7 +107,8 @@ function post(path, params, method) {
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   http.onreadystatechange = function() {
       if(http.readyState == 4 && http.status == 200) {
-          console.log(http.responseText);
+          msg.innerHTML = "I've created a new object for you.  Look up silly!";
+          setTimeout(() => msg.innerHTML = '', 8000);
       }
   }
   http.send(params);
@@ -142,10 +149,19 @@ function onComplete(active) {
   }
 }
 
-btn.addEventListener('click', () => {
+function shuffle() {
+  msg.innerHTML = '';
   machine1.shuffle(5, onComplete);
   setTimeout(() => machine2.shuffle(5, onComplete), 500);
   setTimeout(() => machine3.shuffle(5, onComplete), 1000);
+}
+
+btn.addEventListener('click', () => {
+  shuffle();
+});
+
+btn.addEventListener('touchstart', () => {
+  shuffle();
 });
 
 
