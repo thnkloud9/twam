@@ -1,4 +1,4 @@
- @charset "utf-8";
+@charset "utf-8";
 /* CSS Document */
 
 @import url(https://fonts.googleapis.com/css?family=Roboto);
@@ -16,8 +16,10 @@ code {
 }
 
 .well {
-  padding: 25px;
+  padding: 0 25px;
+  margin-bottom: 25px;
   background-color: rgba(245, 245, 245, 0.7);
+  /* background-color: red; */
   border-radius: 5px;
 }
 
@@ -117,40 +119,47 @@ header a {
  * Airlines
  */
 #word {
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   position: relative;
   border-bottom: 3px solid black;
   border-top: 3px solid black;
 }
 
-#word .content {
-  width: 100%;
-  float: left;
-  font-size: 50px;
-  font-weight: 300;
-  line-height: 42px;
-  margin-top: 30px;
-  text-align: center;
-}
-
-#word .content, footer .content{
+footer .content{
   font-family: 'Pathway Gothic One';
   font-size: 70px;
   font-weight: 300;
   line-height: 80px;
 }
 
+#word .content {
+  font-family: 'Pathway Gothic One';
+  width: 100%;
+  float: left;
+  font-size: 45px;
+  font-weight: 300;
+  line-height: 42px;
+  margin-top: 30px;
+  text-align: center;
+}
+
 .word-list {
-  height: 67px;
+  height: 80px;
+  margin-left: -30px;
   overflow: hidden;
   display: inline-block;
   text-align: left;
 }
 
+.word-list .text-center {
+  line-height: 85px;
+}
+
 /*
  * Footer
  */
-footer{
+footer {
   width:100%;
   background-color: #6C5726;
   border-top: 20px dashed #A48E4E;
