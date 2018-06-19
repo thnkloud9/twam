@@ -1,15 +1,16 @@
 <!doctype html>
-<title>Intelligent Selections</title>
-{% if name %}
-  <h1>This is {{ name }}!</h1>
-{% else %}
-  <h1>This is World!</h1>
-{% endif %}
+<head>
+    <title>Intelligent Selection</title>
+</head>
 
-<hr>
-
-{% if desc %}
-  <h3>{{ desc }}!</h3>
+<body>
+{% if items %}
+  {% for item in items %}
+  <h3>{{ item["Noun"] | trim }}!</h3>
+  <p>{{ item["Desc"] }}</p>
+  {% endfor %}
 {% else %}
   <h3>Empty!</h3>
 {% endif %}
+</body>
+</html>

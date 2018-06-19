@@ -21,54 +21,33 @@
           <div class="col-sm-4">
             <div class="well content">
               <div id="wordMachine1" class="word-list">
-                <div class="text-center">
-                  Sexy
-                </div>
-                <div class="text-center">
-                  Glass
-                </div>
-                <div class="text-center">
-                  Iron 
-                </div>
-                <div class="text-center">
-                  Plastic
-                </div>
+                {% for word in words %}
+                  <div class="text-center">
+                    {{ word["Noun"] }}
+                  </div>
+                {% endfor %}
               </div>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="well content">
               <div id="wordMachine2" class="word-list">
-                <div class="text-center">
-                  World
-                </div>
-                <div class="text-center">
-                  London
-                </div>
-                <div class="text-center">
-                  Berlin 
-                </div>
-                <div class="text-center">
-                  Matrix
-                </div>
+                {% for word in words %}
+                  <div class="text-center">
+                    {{ word["Noun"] }}
+                  </div>
+                {% endfor %}
               </div>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="well content">
               <div id="wordMachine3" class="word-list">
-                <div class="text-center">
-                  Castle
-                </div>
-                <div class="text-center">
-                  Jar
-                </div>
-                <div class="text-center">
-                  Jumper
-                </div>
-                <div class="text-center">
-                  Lamp
-                </div>
+                {% for word in words %}
+                  <div class="text-center">
+                    {{ word["Noun"] }}
+                  </div>
+                {% endfor %}
               </div>
             </div>
           </div>
