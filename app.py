@@ -79,7 +79,7 @@ def interface():
    cur.execute("select distinct Noun from Entries")
    words = cur.fetchall();
 
-   return render_template('interface.html', words=words)
+   return render_template('interface.jquery.html', words=words)
 
 
 @app.route('/done/')
