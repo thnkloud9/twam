@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/style.css?v=6" type="text/css" media="screen" />
     <link rel="stylesheet" href="/static/slotmachine.css" type="text/css" media="screen" />
 
-    <script src="/static/slotmachine.js"></script>
+    <script src="/static/slotmachine.2015.js"></script>
 
 </head>
 
@@ -67,14 +67,14 @@
     </div>
 
 <script id="codeScript1">
-  const btn = document.querySelector('#randomizeButton');
-  const msg = document.querySelector('#msg');
-  const wordMachine1 = document.querySelector('#wordMachine1');
-  const machine1 = new SlotMachine(wordMachine1, { active: 1, });
-  const wordMachine2 = document.querySelector('#wordMachine2');
-  const machine2 = new SlotMachine(wordMachine2, { active: 1, });
-  const wordMachine3 = document.querySelector('#wordMachine3');
-  const machine3 = new SlotMachine(wordMachine3, { active: 1, });
+  var btn = document.querySelector('#randomizeButton');
+  var msg = document.querySelector('#msg');
+  var wordMachine1 = document.querySelector('#wordMachine1');
+  var machine1 = new SlotMachine(wordMachine1, { active: 1, });
+  var wordMachine2 = document.querySelector('#wordMachine2');
+  var machine2 = new SlotMachine(wordMachine2, { active: 1, });
+  var wordMachine3 = document.querySelector('#wordMachine3');
+  var machine3 = new SlotMachine(wordMachine3, { active: 1, });
   var matchedWords = 0;
   var words = [];
 

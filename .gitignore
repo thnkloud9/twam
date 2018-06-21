@@ -3,3 +3,5 @@ __pycache__
 *.swp
 *.db
 *.otf
+twam.db
+node_modules
